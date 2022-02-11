@@ -1,2 +1,2 @@
 sudo apt-get install -y screen
-wget https://gitlab.com/fronczek/screen/-/raw/main/.screenrc
+wget -O ~/.screenrc https://gitlab.com/fronczek/screen/-/raw/main/.screenrc
