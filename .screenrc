@@ -1,0 +1,17 @@
+startup_message off
+defdynamictitle off
+hardstatus on
+hardstatus alwayslastline
+hardstatus string  '%{= Bk}[ %H ] %{= gW} [%= %-Lw%{= rW}%n|%f|%t%{-}%+Lw %=] %{bW} [ %d %M %Y %c:%s ] %{= Yk} [ %l ]'
+vbell on
+defscrollback 100000
+autodetach on
+screen -t 'bash1'       1
+screen -t 'bash2'       2
+screen -t 'bash3'       3
+screen -t 'bash4'       4
+screen -t 'htop'        7 htop
+bindkey -k F1 prev
+bindkey -k F2 next
+select 1
+term screen-256color
