@@ -1,9 +1,9 @@
-# screen
+# Quick setup basic console related stuff
 
 ## Usage
 ```
-wget https://gitlab.com/fronczek/screen/-/raw/main/screen.sh -O - | bash
+wget https://gitlab.com/fronczek/console/-/raw/main/console.sh -O - | bash
 ```
 
 ## License
-For open source projects, say how it is licensed.
+\(ᵔᵕᵔ)/
