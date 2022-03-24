@@ -6,4 +6,4 @@ wget https://gitlab.com/fronczek/console/-/raw/main/console.sh -O - | bash
 ```
 
 ## License
-\(ᵔᵕᵔ)/
+MIT
