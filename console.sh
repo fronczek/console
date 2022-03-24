@@ -3,4 +3,4 @@ wget https://gitlab.com/fronczek/console/-/raw/main/.screenrc -O ~/.screenrc
 wget https://gitlab.com/fronczek/console/-/raw/main/.bash_powerline_ng -O ~/.bash_powerline_ng
 sudo wget  https://gitlab.com/fronczek/console/-/raw/main/yaml.nanorc -O /usr/share/nano/yaml.nanorc
 
-if [ "$BASH" ] && [ -z "$FG_COLOR1" ]; then echo "source ~/.bash_powerline_ng" >> ~/.bashrc; fi
+if [ "$BASH" ] && [ $(cat ~/.bashrc|grep powerline|wc -l) == 0 ]; then echo "source ~/.bash_powerline_ng" >> ~/.bashrc; else echo "Powerlin e already in bashrc"; fi
