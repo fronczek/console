@@ -82,14 +82,14 @@ __powerline() {
         *)
             readonly PS_SYMBOL=$PS_SYMBOL_OTHER
     esac
-    
+
     # what Server?
     case "$(hostname)" in
     vps*|VPS*)
         readonly BG_HOSTNAME="$BG_MAGENTA"
         readonly FG_HOSTNAME="$FG_MAGENTA"
         ;;
-    E7490*)
+    P7670*)
         readonly BG_HOSTNAME="$BG_VIOLET"
         readonly FG_HOSTNAME="$FG_VIOLET"
         ;;
@@ -139,10 +139,17 @@ __powerline() {
             PS1+="$FG_COLOR1$BG_COLOR1 \u $RESET$FG_COLOR2"
         fi
 
+        if test -z "$VIRTUAL_ENV" ; then
+          PYTHON_VIRTUALENV=""
+        else
+          PYTHON_VIRTUALENV="${FG_COLOR3}🐍`basename \"$VIRTUAL_ENV\"`${RESET}"
+        fi
+
         PS1+="$BG_HOSTNAME$FG_COLOR3$BG_HOSTNAME$BOLD \h $RESET$FG_HOSTNAME$BG_COLOR5$FG_COLOR5$BG_COLOR5 \w "
         PS1+="$RESET${FG_COLOR6}"
         PS1+="$(__git_info)"
-        PS1+="$BG_USER$RESET"
+        PS1+="$BG_USER"
+        PS1+="${PYTHON_VIRTUALENV}"
         PS1+="$BG_USER$FG_BASE3 ${PS_SYMBOL} ${RESET}${FG_USER}${RESET} "
     }
 
