@@ -1,9 +1,7 @@
 # Quick setup basic console related stuff
 
 ## Usage
-```
-wget https://gitlab.com/fronczek/console/-/raw/main/console.sh -O - | bash
-```
+Clone the repo and run: `./console.sh`. 
 
 ## License
 MIT

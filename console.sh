@@ -1,6 +1,15 @@
-sudo apt-get install -y screen nano git
-wget https://gitlab.com/fronczek/console/-/raw/main/.screenrc -O ~/.screenrc
-wget https://gitlab.com/fronczek/console/-/raw/main/.bash_powerline_ng -O ~/.bash_powerline_ng
-sudo wget  https://gitlab.com/fronczek/console/-/raw/main/yaml.nanorc -O /usr/share/nano/yaml.nanorc
+#!/bin/bash
 
-if [ "$BASH" ] && [ $(cat ~/.bashrc|grep powerline|wc -l) == 0 ]; then echo "source ~/.bash_powerline_ng" >> ~/.bashrc; else echo "Powerlin e already in bashrc"; fi
+sudo apt-get install -y screen nano git
+mkdir ~/.nano
+
+cp .screenrc ~/.screenrc
+cp .bash_powerline_ng ~/.bash_powerline_ng
+cp yaml.nanorc ~/.nano/yaml.nanorc
+
+if [ "$BASH" ] && [ $(cat ~/.bashrc|grep powerline|wc -l) == 0 ]
+then
+  echo "source ~/.bash_powerline_ng" >> ~/.bashrc
+else
+  echo "Powerline already in bashrc"
+fi
