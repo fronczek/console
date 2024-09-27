@@ -1,0 +1,57 @@
+---
+- name: Prepare Linux console
+  hosts: localhost
+  gather_facts: false
+
+  pre_tasks:
+    - name: Font warning
+      ansible.builtin.debug:
+        msg:
+          - "NOTE: bash_powerline uses glyphs from Cascadia Code PL variant."
+          - "Please make sure you have Cascadia Code PL font installed."
+          - "See https://github.com/microsoft/cascadia-code/releases for details."
+
+  tasks:
+    - name: Install git, nano, keychain and screen
+      ansible.builtin.package:
+        name: ["git", "nano", "screen", "keychain"]
+        state: present
+      become: true
+
+    - name: Create .nano dir
+      ansible.builtin.file:
+        path: ~/.nano
+        state: directory
+        mode: "0755"
+
+    - name: Copy config files
+      ansible.builtin.copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        mode: "0644"
+      loop_control:
+        label: "{{ item.src }}"
+      loop:
+        - { src: ".bash_powerline_ng", dest: "~/.bash_powerline_ng" }
+        - { src: ".screenrc", dest: "~/.screenrc" }
+        - { src: "yaml.nanorc", dest: "~/.nano/yaml.nanorc" }
+
+    - name: Setup .bashrc
+      ansible.builtin.lineinfile:
+        path: "~/.bashrc"
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      loop_control:
+        label: "{{ item.regexp }}"
+      loop:
+        - { regexp: "source ~/.bash_powerline_ng", line: "source ~/.bash_powerline_ng" }
+        - { regexp: "shopt -s histappend", line: "shopt -s histappend    # append to the history file, don't overwrite it" }
+        - { regexp: "shopt -s checkwinsize", line: "shopt -s checkwinsize  # check the window size after each command and, if necessary, update the values of LINES and COLUMNS." }
+        - { regexp: "shopt -s cmdhist", line: "shopt -s cmdhist       # Multiple commands on one line show up as a single line" }
+        - { regexp: "export HISTTIMEFORMAT", line: "export HISTTIMEFORMAT='%F %T '" }
+        - { regexp: "export HISTFILESIZE", line: "export HISTFILESIZE=-1" }
+        - { regexp: "export HISTSIZE", line: "export HISTSIZE=-1" }
+        - { regexp: "export HISTCONTROL", line: "export HISTCONTROL=ignoreboth" }
+        - { regexp: "export HISTIGNORE", line: "export HISTIGNORE=?:??:clear:history:mc" }
+        - { regexp: "export PROMPT_COMMAND", line: 'export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"' }
+        - { regexp: "export TERM", line: "export TERM=xterm-256color" }
