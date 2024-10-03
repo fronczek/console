@@ -14,7 +14,7 @@
   tasks:
     - name: Install git, nano, keychain and screen
       ansible.builtin.package:
-        name: ["git", "nano", "screen", "keychain"]
+        name: ["git", "nano", "screen", "keychain", "sshpass"]
         state: present
       become: true
 
