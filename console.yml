@@ -45,13 +45,23 @@
         label: "{{ item.regexp }}"
       loop:
         - { regexp: "source ~/.bash_powerline_ng", line: "source ~/.bash_powerline_ng" }
-        - { regexp: "shopt -s histappend", line: "shopt -s histappend    # append to the history file, don't overwrite it" }
-        - { regexp: "shopt -s checkwinsize", line: "shopt -s checkwinsize  # check the window size after each command and, if necessary, update the values of LINES and COLUMNS." }
-        - { regexp: "shopt -s cmdhist", line: "shopt -s cmdhist       # Multiple commands on one line show up as a single line" }
-        - { regexp: "export HISTTIMEFORMAT", line: "export HISTTIMEFORMAT='%F %T '" }
-        - { regexp: "export HISTFILESIZE", line: "export HISTFILESIZE=-1" }
-        - { regexp: "export HISTSIZE", line: "export HISTSIZE=-1" }
-        - { regexp: "export HISTCONTROL", line: "export HISTCONTROL=ignoreboth" }
-        - { regexp: "export HISTIGNORE", line: "export HISTIGNORE=?:??:clear:history:mc" }
-        - { regexp: "export PROMPT_COMMAND", line: 'export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"' }
-        - { regexp: "export TERM", line: "export TERM=xterm-256color" }
+        - { regexp: "shopt -s histappend",         line: "shopt -s histappend    # ansible: append to the history file, don't overwrite it" }
+        - { regexp: "shopt -s checkwinsize",       line: "shopt -s checkwinsize  # ansible: check the window size after each command and, if necessary, update the values of LINES and COLUMNS." }
+        - { regexp: "shopt -s cmdhist",            line: "shopt -s cmdhist       # ansible: multiple commands on one line show up as a single line" }
+        - { regexp: "export HISTTIMEFORMAT",       line: "export HISTTIMEFORMAT='%F %T '" }
+        - { regexp: "export HISTFILESIZE",         line: 'export HISTFILESIZE=-1' }
+        - { regexp: "export HISTSIZE",             line: 'export HISTSIZE=-1' }
+        - { regexp: "export HISTCONTROL",          line: 'export HISTCONTROL=ignoreboth' }
+        - { regexp: "export HISTIGNORE",           line: 'export HISTIGNORE=?:??:clear:history' }
+        - { regexp: "export PROMPT_COMMAND",       line: 'export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"' }
+        - { regexp: "export TERM",                 line: 'export TERM=xterm-256color' }
+
+    - name: Setup .profile
+      ansible.builtin.lineinfile:
+        path: "~/.profile"
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      loop_control:
+        label: "{{ item.regexp }}"
+      loop:
+        - { regexp: "eval `keychain --eval --agents ssh id_rsa`", line: "eval `keychain --eval --agents ssh id_rsa`" }
